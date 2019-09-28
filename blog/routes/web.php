@@ -14,4 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('Đường dẫn','welcome');
+Route::get('layout', function () {
+    return view('layouts');
+});
