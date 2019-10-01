@@ -10,17 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Models\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('layout', function () {
-    return view('layouts');
+Route::get('users', function () {
+	$users = factory(App\Models\User::class,11)->make();
+    return view('users',compact('users'));
 });
-Route::get('starter', function () {
-    $users = factory(App\Models\User::class, 10)->make();
-    // dd($users);
-    return view('starter',[
-    	'users' => $users
-    ]);
+Route::get('posts', function () {
+	$posts = factory(App\Models\Post::class,10)->make();
+    return view('posts',compact('posts'));
 });

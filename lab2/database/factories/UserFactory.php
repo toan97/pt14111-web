@@ -19,10 +19,10 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'birth_day' => $faker->date(),
+        'email' => $faker->unique()->email,
+        'password' => bcrypt('123456'),
+        'address' => $faker->address,
         'phone_number' => $faker->e164PhoneNumber,
-        'email' => $faker->email,
-        'role' => $faker->numberBetween(1,3),
-        'password' => Hash::make('123456'),
+        'birthday' => $faker->date('Y-m-d','now')
     ];
 });
