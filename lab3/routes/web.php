@@ -12,54 +12,23 @@
 */
 use App\Models\User;
 use Illuminate\Http\Request;
-Route::get('/', function () {
-    return view('welcome');
+
+
+// Route Group
+Route::group(['prefix' => 'users','as' => 'users.'],function (){
+
+	Route::get('/','UserController@index')->name('index');
+
+	Route::get('create','UserController@create')->name('create');
+
+	Route::post('users','UserController@store')->name('store');
+
+	Route::get('{id}/edit','UserController@edit')->name('edit');
+
+	Route::post('update/{id}','UserController@update')->name('update');
+
+	Route::post('{id}','UserController@destroy')->name('destroy');
+
+
+	Route::get('{id}/show','UserController@show')->name('show');
 });
-Route::get('users', function () {
-	$users = User::all();
-    return view('users',compact('users'));
-})->name('users.index');
-
-Route::get('users/create',function ()
-{
-	return view('users.create');
-})->name('users.create');
-
-Route::post('users',function (Request $req)
-{
-	$user = new User();
-	$user->name = $req->name;
-	$user->email = $req->email;
-	$user->password = bcrypt($req->password);
-	$user->phone_number = $req->phone_number;
-	$user->address = $req->address;
-	$user->birthday = $req->birthday;
-	$user->save();
-	return redirect()->route('users.index');
-})->name('users.store');
-
-Route::get('users/{id}/edit',function ($id)
-{
-	$user = User::find($id);
-	return view('users.edit',compact('user'));
-})->name('users.edit');
-
-Route::post('users/update/{id}',function (Request $req,$id)
-{
-	$user = User::find($id);
-	$user->name = $req->name;
-	$user->email = $req->email;
-	$user->password = bcrypt($req->password);
-	$user->phone_number = $req->phone_number;
-	$user->address = $req->address;
-	$user->birthday = $req->birthday;
-	$user->save();
-	return redirect()->route('users.index');
-})->name('users.update');
-
-Route::post('users/{id}',function ($id)
-{
-	App\Models\Post::where('user_id',$id)->delete();
-	User::destroy($id);
-	return redirect()->route('users.index');
-})->name('users.destroy');
