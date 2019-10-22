@@ -32,3 +32,11 @@ Route::group(['prefix' => 'users','as' => 'users.'],function (){
 
 	Route::get('{id}/show','UserController@show')->name('show');
 });
+
+
+// Route::view('login','auth.login');
+
+
+Route::get('login','AuthController@getLoginForm')->name('auth.login_form');
+
+Route::post('login','AuthController@login')->name('auth.login');

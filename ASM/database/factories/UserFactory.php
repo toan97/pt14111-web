@@ -19,11 +19,11 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'birthday' => $faker->date('now'),
+        'birthday' => $faker->date('Y-m-d','now'),
         'phone_number' => $faker->e164PhoneNumber,
         'email' => $faker->unique()->freeEmail,
         'password' => bcrypt('123456'),
         'role' => $faker->numberBetween(1,2),
-        'is_active' => $faker->numberBetween(1,2)
+        'is_active' => $faker->boolean()
     ];
 });

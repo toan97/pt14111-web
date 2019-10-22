@@ -12,6 +12,6 @@ $factory->define(Comment::class, function (Faker $faker) {
         'content' => $faker->text(500),
         'post_id' => $faker->randomElement($posts),
         'user_id' => $faker->randomElement($users),
-        'is_active' => $faker->numberBetween(1,2)
+        'is_active' => $faker->boolean(0,1)
     ];
 });

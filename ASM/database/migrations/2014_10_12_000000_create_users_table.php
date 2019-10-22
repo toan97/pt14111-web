@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('role');
-            $table->integer('is_ative');
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }
