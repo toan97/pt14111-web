@@ -18,8 +18,8 @@ class CheckRoleAdmin
         if(Auth::check() !== true){
             return redirect()->route('auth.showLoginForm');
         }
-        if (Auth::user()->role != 2) {
-            return redirect()->route('client.index');
+        if (Auth::user()->role != config('role.admin')) {
+            return abort(403);
         }
         return $next($request);
     }

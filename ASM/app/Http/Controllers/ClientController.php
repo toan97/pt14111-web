@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use Auth;
 use Illuminate\Http\Request;
@@ -25,5 +26,19 @@ class ClientController extends Controller
     	$categories = Category::all();
     	$category = Category::find($id);
     	return view('client.category',compact('categories','category'));
+    }
+    function show()
+    {
+        return view('client.show');
+    }
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->birthday = $request->birthday;
+        $user->phone_number = $request->phone_number;
+        $user->save();
+        return redirect()->route('client.show');
     }
 }

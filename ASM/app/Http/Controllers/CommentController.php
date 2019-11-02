@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\User;
+use App\Models\Post;
+use Auth;
+use App\Http\Requests\Comment\UpdateRequest;
+use App\Http\Requests\Comment\StoreRequest;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -26,7 +30,8 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        $posts = Post::all();
+        return view('comments.create',compact('posts'));
     }
 
     /**
@@ -35,9 +40,15 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $comment = new Comment();
+        $comment->user_id = Auth::id();
+        $comment->content = $request->content;
+        $comment->post_id = $request->post_id;
+        $comment->is_active = 1;
+        $comment->save();
+        return redirect()->route('comments.index');
     }
 
     /**
@@ -59,7 +70,9 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::find($id);
+        $posts = Post::all();
+        return view('comments.edit',compact('comment','posts'));
     }
 
     /**
@@ -69,9 +82,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+        $comment->content = $request->content;
+        $comment->post_id = $request->post_id;
+        $comment->is_active = 1;
+        $comment->save();
+        return redirect()->route('comments.index');
     }
 
     /**
@@ -82,6 +100,7 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::destroy($id);
+        return redirect()->route('comments.index');
     }
 }

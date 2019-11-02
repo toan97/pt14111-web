@@ -6,13 +6,16 @@
 	    <label for="title">Title:</label>
 	    <input type="text" class="form-control" id="title" name="title">
 	    @error('title')
-	    	{{ $message }}
+	    	<p style="color: red"><i>{{ $message }}</i></p>
 	    @enderror
 	  </div>
 
 	   <div class="form-group">
 	    <label for="content">Content:</label>
 	    <input type="text" class="form-control" id="content" name="content">
+	    @error('content')
+	    	<p style="color: red"><i>{{ $message }}</i></p>
+	    @enderror
 	  </div>
 
 	  <div class="form-group">
@@ -22,6 +25,9 @@
 	    		<option value="{{ $category->id }}">{{ $category->name }}</option>
 	    	@endforeach
 	    </select>
+	    @error('category')
+	    	<p style="color: red"><i>{{ $message }}</i></p>
+	    @enderror
 	  </div>
 
 	  <button type="submit" class="btn btn-primary">Submit</button>

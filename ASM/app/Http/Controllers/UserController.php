@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
 
 class UserController extends Controller
 {
@@ -34,7 +36,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $user = new User();
         $user->name = $request->name;
@@ -42,8 +44,6 @@ class UserController extends Controller
         $user->password = $request->password;
         $user->birthday = $request->birthday;
         $user->phone_number = $request->phone_number;
-        $user->role = 1;
-        $user->is_active = 1;
         $user->save();
         return redirect()->route('users.index');
     }
@@ -79,16 +79,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
         $user->birthday = $request->birthday;
         $user->phone_number = $request->phone_number;
-        $user->role = 1;
-        $user->is_active = 1;
         $user->save();
         return redirect()->route('users.index');
     }
@@ -101,6 +98,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect()->route('users.index');
     }
 }

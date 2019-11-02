@@ -24,7 +24,16 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'content' => 'required'
+        ];
+    }
+    public function messages()
+    {
+        return
+        [
+            'title.required' => 'Tiêu đề không được để trống',
+            'content.required' => 'Nội dung bài viết không được để trống'
         ];
     }
 }

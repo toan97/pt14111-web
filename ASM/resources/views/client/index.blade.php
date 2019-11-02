@@ -7,11 +7,12 @@
 	<link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
 </head>
 <body>
-	<div class="col-md-10">
+	<div class="col-md-10" style="padding: 50px 20px 0px 50px">
 		<form action="{{ route('auth.logout') }}" method="POST" class="pull-right">
 			@csrf
-			<button type="submit" class="btn btn-danger">Đăng xuất</button>
+			<button type="submit" class="btn btn-danger">Logout</button>
 		</form>
+		<a href="{{ route('client.show') }}">Profile</a>
 	</div>
 	<div class="col-md-6 offset-3">
 		<div class="row">

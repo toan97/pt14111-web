@@ -34,13 +34,18 @@
 									<option>In_active</option>
 								</select>
 							</td>
-							<td><a href="{{ route('users.edit',['id'=> $user->id]) }}" class="btn btn-primary">Update</a></td>
+							<td><a href="{{ route('users.edit',['id' => $user->id]) }}" class="btn btn-primary">Update</a></td>
 							<td>
 								<form id="form_delete{{ $user->id }}" action="" method="POST">
 									@csrf
 								</form>
 							</td>
-							<td><a href="" class="btn btn-danger">Delete</a></td>
+							<td>
+								<form action="{{ route('users.destroy',['id'=> $user->id]) }}" method="POST">
+									@csrf
+									<button type="submit" class="btn btn-danger">Delete</button>
+								</form>
+							</td>
 						</tr>
 					@endforeach
 				</tbody>

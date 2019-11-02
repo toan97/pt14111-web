@@ -6,26 +6,24 @@
 	@else
 			<table class="table table-border table-hover">
 				<thead>
-					<th>Content</th>
 					<th>UserName</th>
+					<th>Content</th>
 					<th>Posts</th>
-					<th>Is_active</th>
-					<th colspan="4" class="text-center"><a href="" class="btn btn-success ">Add New</a></th>
+					<th colspan="4" class="text-center"><a href="{{ route('comments.create') }}" class="btn btn-success ">Add New</a></th>
 				</thead>
 				<tbody>
 					@foreach ($comments as $comment)
 						<tr>
-							<td>{{ $comment->content }}</td>
 							<td>{{ $comment->user->name }}</td>
+							<td>{{ $comment->content }}</td>
 							<td>{{ $comment->post->id }}</td>
-							<td>{{ $comment->is_active }}</td>
-							<td><a href="" class="btn btn-primary">Update</a></td>
+							<td><a href="{{ route('comments.edit',['id' => $comment->id]) }}" class="btn btn-primary">Update</a></td>
 							<td>
-								<form action="" method="POST">
+								<form action="{{ route('comments.destroy',['id'=> $comment->id]) }}" method="POST">
 									@csrf
+									<button type="submit" class="btn btn-danger">Delete</button>
 								</form>
 							</td>
-							<td><a href="" class="btn btn-danger">Delete</a></td>
 						</tr>
 					@endforeach
 				</tbody>

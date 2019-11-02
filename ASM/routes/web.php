@@ -49,6 +49,8 @@ Route::group(['middleware' => 'check_role_admin'], function() {
 		Route::post('/{id}/update','UserController@update')->name('update');
 
 		Route::get('/{id}/show','UserController@show')->name('show');
+
+		Route::post('/{id}','UserController@destroy')->name('destroy');
 	});
 	// Route Categories
 	Route::group(['prefix' => 'categories','as' => 'categories.'], function() {
@@ -65,7 +67,22 @@ Route::group(['middleware' => 'check_role_admin'], function() {
 
 		Route::post('/{id}','CategoryController@destroy')->name('destroy');
 	});
+	// Route Comments
+	Route::group(['prefix' => 'comments','as' => 'comments.'], function() {
+	    
+		Route::get('','CommentController@index')->name('index');
 
+		Route::get('/create','CommentController@create')->name('create');
+
+		Route::post('','CommentController@store')->name('store');
+
+		Route::get('/{id}/edit','CommentController@edit')->name('edit');
+
+		Route::post('/{id}/update','CommentController@update')->name('update');
+
+		Route::post('/{id}','CommentController@destroy')->name('destroy');
+
+	});
 });
 
 
@@ -74,12 +91,14 @@ Route::group(['middleware' => 'check_logout'], function() {
 
 	Route::group(['prefix' => 'client','as' => 'client.'], function() {
 
-	    Route::get('/','ClientController@index')->name('index');
+	    Route::get('','ClientController@index')->name('index');
 
 		Route::get('/post/{id}','ClientController@singlePost')->name('singlePost');
 
 		Route::get('/category/{id}','ClientController@PostCategory')->name('category');
+		Route::get('/show','ClientController@show')->name('show');
 
+		Route::post('/update','ClientController@update')->name('update');
 		});
 });
 
@@ -104,9 +123,15 @@ Route::group(['middleware' => 'check_logout'], function() {
 
 
 
-
-
-
-Route::get('comments','CommentController@index')->name('comments.index');
+Route::get('test',function ()
+{
+	App\Models\User::create([
+		'name' =>'toan',
+		'email' =>'toan123@gmail.com',
+		'password' =>'123456',
+		'birthday' =>'11-11-2011',
+		'phone_number' => '12345678'
+	]);
+});
 
 

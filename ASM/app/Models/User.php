@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $fillable = ['name','email','password','phone_number','birthday'];
+
     public function categories()
     {
     	return $this->hasMany(Category::class);
@@ -23,6 +25,6 @@ class User extends Authenticatable
     }
     public function setPasswordAttribute($password)
     {
-        $this->attribute['password'] = bcrypt($password);
+        $this->attributes['password'] = bcrypt($password);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Comment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100|unique:posts,title',
             'content' => 'required'
         ];
     }
@@ -32,10 +31,7 @@ class StoreRequest extends FormRequest
     {
         return
         [
-            'title.required' => 'Tiêu đề không được để trống',
-            'title.max' => 'Tiêu đề không vượt quá 100 ký tự',
-            'title.unique' => 'Tiêu bài viết đã tồn tại vui lòng chọn tiêu đề khác',
-            'content.required' => 'Nội dung bài viết không được để trống'
+            'content.required' => 'Nội dung bình luận không được để trống'
         ];
     }
 }
